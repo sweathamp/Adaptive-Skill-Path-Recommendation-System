@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API = "https://skillforge-backend-ngc7.onrender.com";
+const API = "https://adaptive-skill-path-recommendation-system.onrender.com";
 
 const AuthContext = createContext();
 
