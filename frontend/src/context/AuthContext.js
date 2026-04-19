@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
+const API = "https://skillforge-backend-ngc7.onrender.com";
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -19,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get('/api/profile');
+      const res = await axios.get(`${API}/api/profile`);
       setUser(res.data);
     } catch {
       logout();
@@ -29,7 +31,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password, role = 'user') => {
-    const res = await axios.post('/api/auth/login', { email, password, role });
+    const res = await axios.post(`${API}/api/auth/login`, { email, password, role });
     const { token: t, user: u } = res.data;
     localStorage.setItem('sf_token', t);
     axios.defaults.headers.common['Authorization'] = `Bearer ${t}`;
@@ -39,7 +41,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (email, password, name) => {
-    const res = await axios.post('/api/auth/register', { email, password, name });
+    const res = await axios.post(`${API}/api/auth/register`, { email, password, name });
     const { token: t, user: u } = res.data;
     localStorage.setItem('sf_token', t);
     axios.defaults.headers.common['Authorization'] = `Bearer ${t}`;
