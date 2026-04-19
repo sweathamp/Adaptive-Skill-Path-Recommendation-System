@@ -7,12 +7,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ TEST ROUTE
+// ================= ROOT =================
 app.get('/', (req, res) => {
   res.send("Backend working 🚀");
 });
 
-// ✅ PROFILE
+// ================= PROFILE =================
 app.get('/api/profile', (req, res) => {
   res.json({
     name: "SkillForge User",
@@ -22,37 +22,39 @@ app.get('/api/profile', (req, res) => {
   });
 });
 
-// ✅ SKILL PATHS
+// ================= SKILLS LIST =================
+app.get('/api/skills', (req, res) => {
+  res.json([
+    "React",
+    "Node.js",
+    "MongoDB",
+    "Java",
+    "Python",
+    "Machine Learning"
+  ]);
+});
+
+// ================= SKILL PATHS (GET) =================
 app.get('/api/skillpaths', (req, res) => {
-  res.json([
-    {
-      skill: "React",
-      level: "Beginner",
-      tasks: [
-        { title: "Learn JSX", completed: true },
-        { title: "Build Components", completed: false }
-      ]
-    },
-    {
-      skill: "Node.js",
-      level: "Intermediate",
-      tasks: [
-        { title: "Setup Express", completed: true },
-        { title: "Create API", completed: false }
-      ]
-    }
-  ]);
+  res.json([]);
 });
 
-// ✅ NOTIFICATIONS
-app.get('/api/notifications', (req, res) => {
-  res.json([
-    { message: "Welcome to SkillForge 🚀" },
-    { message: "Start your first skill path!" }
-  ]);
+// ================= GENERATE SKILL PATH =================
+app.post('/api/skillpaths', (req, res) => {
+  const { skill } = req.body;
+
+  res.json({
+    skill,
+    level: "Beginner",
+    tasks: [
+      { title: "Learn Basics", completed: false },
+      { title: "Build Mini Project", completed: false },
+      { title: "Build Full Project", completed: false }
+    ]
+  });
 });
 
-// ✅ AUTH (dummy working)
+// ================= AUTH =================
 app.post('/api/auth/register', (req, res) => {
   res.json({
     token: "dummy_token",
